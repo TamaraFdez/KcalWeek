@@ -98,7 +98,7 @@ function App() {
     setFoodItems((prev) => prev.filter((item) => item.id !== id));
   }
   return (
-    <>
+    
     <div className="App">
       <h1>Planificador de Comidas</h1>
       <div className="add-food-form">
@@ -119,8 +119,9 @@ function App() {
       </div>
       <div className="food-list">
         <h2>Lista de Comidas</h2>
+        <ul className="food-items">
         {foodItems.map((item) => (
-          <div
+          <li
             key={item.id}
             draggable
             onDragStart={() => handleDragStart(item.id)}
@@ -129,8 +130,9 @@ function App() {
             {item.name} - {item.kcal} kcal/100g
             <button className="boton-delete" onClick={() => borrarComida(item.id)}>✖</button>
 
-          </div>
+          </li>
         ))}
+        </ul>
       </div>
 
       <div className="week-grid">
@@ -169,7 +171,7 @@ function App() {
         })}
       </div>
     </div>
-    </>
+    
   );
 }
 
