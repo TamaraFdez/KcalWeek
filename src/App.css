@@ -2,17 +2,11 @@
   font-family: sans-serif;
   box-sizing: border-box;
   width: 100%;
- 
- 
-}
-body{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
   background-color: #0a0f1f;
-  color: #e0f0ff;
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
+
 
 
 h1, h2, h3 {
@@ -178,11 +172,20 @@ input[type="number"] {
 }
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+ flex-direction: column;
   background-color: #1f2a48;
   padding: 1rem;
   color: white;
+  width: 100%;
+}
+h2{
+  text-align: center;
+}
+.navbar-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .dropdown-toggle {
@@ -190,8 +193,12 @@ input[type="number"] {
   color: white;
   border: none;
   padding: 0.5rem;
+  height: 3rem;
+  min-width: 150px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 3rem;
+  font-size: 0.9rem;
 }
 
 .dropdown-menu {
@@ -207,14 +214,13 @@ input[type="number"] {
   transition: 0.2s;
   display: flex;
   flex-direction: column;
-  min-width: 15dvw;
   width: 100%;
   max-width: 35dvw;
   height: 100%;
   max-height: 90dvh;
   scrollbar-width: thin;
   scrollbar-color: #5ee4ff #121c38;
-  
+  border-radius: 15px;
   
 }
 .close-btn {
@@ -226,7 +232,7 @@ input[type="number"] {
   cursor: pointer;
   margin-bottom: 0.5rem;
   align-self: center;
-  
+  width: 100%;
 }
 .close-btn:hover {
   color: #ff4343;

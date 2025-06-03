@@ -4,8 +4,7 @@ import CalorieInfo from "./components/CalorieInfo";
 import FoodList from "./components/FoodList";
 import WeekGrid from "./components/WeekGrid";
 import Navbar from "./components/Navbar";
-import AddFoodForm from "./components/AddFoodForm";
-import UserForm from "./components/UserForm";
+
 
 
 
@@ -25,12 +24,12 @@ function App() {
   const [usuario, setUsuario] = useState(() => {
     const saved = localStorage.getItem("usuario");
     return saved ? JSON.parse(saved) : {
-      peso: "70", altura: "175", edad: "30", sexo: "hombre", actividad: "1.55",
+      peso: "74", altura: "168", edad: "32", sexo: "hombre", actividad: "1.55",
     };
   });
 
   useEffect(() => {
-    console.log("Guardando datos en localStorage", weekMeals);
+    
     localStorage.setItem("foodItems", JSON.stringify(foodItems));
     localStorage.setItem("weekMeals", JSON.stringify(weekMeals));
     localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -50,6 +49,7 @@ const handleDrop = (dia, tipo) => {
 
   setWeekMeals(prev => {
     const copia = { ...prev };
+   
     if (!copia[dia]) copia[dia] = { comida: [], cena: [] };
     else{
       if (!copia[dia].comida) copia[dia].comida = [];
@@ -62,7 +62,7 @@ const handleDrop = (dia, tipo) => {
     } 
 
     copia[dia][tipo] = [...(copia[dia][tipo] || []), nueva];
-    console.log(`Añadida ${comida.name} a ${dia} - ${tipo}`);
+   
     return copia;
   });
 
@@ -105,7 +105,7 @@ const handleDrop = (dia, tipo) => {
   };
 
   return (
-    <div className="App">
+    <>
       <Navbar
         usuario={usuario}
         setUsuario={setUsuario}
@@ -114,6 +114,7 @@ const handleDrop = (dia, tipo) => {
         agregarComida={agregarComida}
       />
 
+    <main className="App">
       <CalorieInfo usuario={usuario} weekMeals={weekMeals} />
 
       <FoodList
@@ -128,7 +129,8 @@ const handleDrop = (dia, tipo) => {
         handleGramsChange={handleGramsChange}
         deleteMeal={deleteMeal}
       />
-    </div>
+    </main>
+    </>
   );
 }
 
