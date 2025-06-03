@@ -65,6 +65,7 @@ export default function WeekGrid({
                   {comidas.map((item) => (
                     <div key={item.uid} className="meal-item">
                       {item.name}
+                      <label>
                       <input
                         type="number"
                         value={item.grams}
@@ -72,11 +73,12 @@ export default function WeekGrid({
                         className="grams-input"
                       />
                       g
+                      </label>
                       <button
-                        className="boton-delete"
+                        className="boton-delete-dia"
                         onClick={() => deleteMeal(dia, tipo, item.uid)}
                       >
-                        ❌
+                        ✖
                       </button>
                     </div>
                   ))}

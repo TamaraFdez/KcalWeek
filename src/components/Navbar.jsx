@@ -30,10 +30,15 @@ const Navbar = ({
 
   return (
     <nav className="navbar">
-      <h1>Planificador de Comidas</h1>
+        <div className="navbar-header">
+                
+      <h1>KcalWeek </h1>
+     
       <button onClick={toggleDropdown} className="dropdown-toggle">
         ⚙️ Configuración
-      </button>
+      </button> 
+      </div>
+      <h2>Planificador de Comidas</h2>
 
       {mostrarFormularios && (
         <div ref={dropdownRef} className="dropdown-menu">
