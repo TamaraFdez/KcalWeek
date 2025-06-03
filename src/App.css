@@ -221,5 +221,8 @@ input[type="number"] {
   background: #5ee4ff;
   color: #0a0f1f;
 }
-
+.meal-type{
+  min-height: 100px;
+  width: 100%;
+}
 

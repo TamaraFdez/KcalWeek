@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import AddFoodForm from "./components/AddFoodForm";
 import UserForm from "./components/UserForm";
 
-const diasSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+
 
 function App() {
   const [foodItems, setFoodItems] = useState(() => {
@@ -37,27 +37,34 @@ function App() {
 
   const handleDragStart = (id) => setDraggedFoodId(id);
 
-  const handleDrop = (dia) => {
+  const handleDrop = (dia, tipo) => {
     const comida = foodItems.find(item => item.id === draggedFoodId);
     if (!comida) return;
     const nueva = { ...comida, uid: `${comida.id}-${Date.now()}`, grams: 100 };
-    setWeekMeals(prev => ({ ...prev, [dia]: [...(prev[dia] || []), nueva] }));
+    setWeekMeals(prev => {
+      const copia = { ...prev }
+      if (!copia[dia]) copia[dia] = { comida: [], cena: [] };
+      copia[dia][tipo] = [...(copia[dia][tipo] || []), nueva];
+      return copia;
+    });
   };
 
-  const handleGramsChange = (dia, uid, grams) => {
-    setWeekMeals(prev => ({
-      ...prev,
-      [dia]: prev[dia].map(item =>
+  const handleGramsChange = (dia, tipo, uid, grams) => {
+    setWeekMeals(prev => {
+      const copia = {...prev };
+      copia[dia][tipo] = prev[dia][tipo].map(item =>
         item.uid === uid ? { ...item, grams: parseInt(grams) || 0 } : item
-      ),
-    }));
+      )
+      return copia;
+    });
   };
 
-  const deleteMeal = (dia, uid) => {
-    setWeekMeals(prev => ({
-      ...prev,
-      [dia]: prev[dia].filter(item => item.uid !== uid),
-    }));
+  const deleteMeal = (dia, tipo, uid) => {
+    setWeekMeals(prev => {
+      const copia = { ...prev }
+      copia[dia][tipo] = prev[dia][tipo].filter(item => item.uid !== uid);
+      return copia
+    });
   };
 
   const borrarComida = (id) => {
@@ -95,7 +102,6 @@ function App() {
       />
 
       <WeekGrid
-        diasSemana={diasSemana}
         weekMeals={weekMeals}
         handleDrop={handleDrop}
         handleGramsChange={handleGramsChange}
