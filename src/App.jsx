@@ -24,7 +24,7 @@ function App() {
   const [usuario, setUsuario] = useState(() => {
     const saved = localStorage.getItem("usuario");
     return saved ? JSON.parse(saved) : {
-      peso: "74", altura: "168", edad: "32", sexo: "hombre", actividad: "1.55",
+      peso: "74", altura: "168", edad: "32", sexo: "hombre", actividad: "1.55",proteinas: "200"
     };
   });
 
@@ -128,6 +128,7 @@ const handleDrop = (dia, tipo) => {
         handleDrop={handleDrop}
         handleGramsChange={handleGramsChange}
         deleteMeal={deleteMeal}
+        usuario={usuario}
       />
     </main>
     </>

@@ -5,6 +5,7 @@ export default function WeekGrid({
   handleDrop,
   handleGramsChange,
   deleteMeal,
+  usuario
 }) {
   const diasSemana = [
     "Lunes",
@@ -94,10 +95,16 @@ export default function WeekGrid({
               );
             })}
             <div className="totals-dia">
-              <strong>Total {dia}: </strong> {Math.round(totalDia.kcal)} Kcal,{" "}
-              {Math.round(totalDia.protein)}g Protein,{" "}
-              {Math.round(totalDia.carbs)}g Carbs
-            </div>
+  <strong>Total {dia}: </strong> {Math.round(totalDia.kcal)} Kcal,{" "}
+  {Math.round(totalDia.protein)}g Protein,{" "}
+  {Math.round(totalDia.carbs)}g Carbs
+  <br />
+  <span style={{ color: totalDia.protein < usuario.proteinas ? 'orange' : 'lightgreen' }}>
+    {totalDia.protein < usuario.proteinas
+      ? `Faltan ${Math.round(usuario.proteinas - totalDia.protein)}g de proteínas`
+      : `¡Objetivo de proteínas alcanzado!`}
+  </span>
+</div>
           </div>
         );
       })}
@@ -108,6 +115,11 @@ export default function WeekGrid({
         <strong>Total Semana: </strong> {Math.round(totalSemana.kcal)} Kcal,{" "}
         {Math.round(totalSemana.protein)}g Protein,{" "}
         {Math.round(totalSemana.carbs)}g Carbs
+        <p style={{ color: totalSemana.protein < usuario.proteinas * 7 ? 'orange' : 'lightgreen' }}>
+  {totalSemana.protein < usuario.proteinas * 7
+    ? `Faltan ${Math.round(usuario.proteinas * 7 - totalSemana.protein)}g de proteínas esta semana`
+    : `¡Meta semanal de proteínas cumplida!`}
+</p>
       </div>
       </>
   );

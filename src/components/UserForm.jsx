@@ -26,6 +26,9 @@ export default function UserForm({ usuario, setUsuario }) {
             <option value="1.9">Muy intenso</option>
           </select>
         </label>
+        <label>Proteinas:{" "}
+          <input type="number" value={usuario.proteinas} onChange={(e) => setUsuario((u) => ({ ...u, proteinas: e.target.value }))} />
+        </label>
       </div>
     );
   }

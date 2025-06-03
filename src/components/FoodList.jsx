@@ -5,8 +5,10 @@ export default function FoodList({ foodItems, handleDragStart, borrarComida }) {
         <ul className="food-items">
           {foodItems.map(item => (
             <li key={item.id} draggable onDragStart={() => handleDragStart(item.id)} className="draggrable-item">
-              {item.name} <br />
-              {item.kcal} kcal/100g
+              <p><strong>{item.name}</strong> <br />
+              {item.kcal} kcal/100g <br />
+              {item.protein}g Proteinas <br />
+              {item.carbs}g Carbohidratos </p>
               <button className="boton-delete" onClick={() => borrarComida(item.id)}>✖</button>
             </li>
           ))}
