@@ -50,13 +50,16 @@ button:active{
   transform: scale(0.98);
 }
 
-.add-food-form, .userform{
+.add-food-form, .user-form{
   background-color: #121c38;
-  border: 1px solid #1f2a48;
+  border-bottom: 1px solid #1f2a48;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 2rem;
   box-shadow: 0 0 10 px #00e1ff77;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 
 } 
 
@@ -157,3 +160,104 @@ input[type="number"] {
   color: red;
 
 } 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f2a48;
+  padding: 1rem;
+  color: white;
+}
+
+.dropdown-toggle {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+  background-color: #121c38;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  z-index: 100;
+  max-width: 450px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: rgb(192, 33, 33);
+  float: right;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  align-self: center;
+  
+}
+.close-btn:hover {
+  color: #ff4343;
+}
+.menu-circle {
+  position: fixed;
+  top: 3.5rem;    /* Ajusta según altura navbar */
+  right: 1rem;
+  background-color: #121c38;
+  overflow-y: auto;
+  border-radius: 15px;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  box-shadow: 0 0 10px #00e1ffaa;
+  transition: width 0.5s ease, height 0.5s ease;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scrollbar-width: thin;
+  scrollbar-color: #5ee4ff #121c38;
+}
+
+.menu-circle.open {
+  min-width: 150px;
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
+}
+
+.menu-content {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s; /* Aparece después de que el círculo crezca */
+  color: #e0f0ff;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.menu-content.visible {
+  opacity: 1;
+}
+
+.dropdown-toggle {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.dropdown-toggle:hover {
+  background: #5ee4ff;
+  color: #0a0f1f;
+}
+
+
