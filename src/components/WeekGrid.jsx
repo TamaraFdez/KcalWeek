@@ -23,6 +23,7 @@ export default function WeekGrid({
   const tipos = ["comida", "cena"];
 
   return (
+    <>
     <div className="week-grid">
       {diasSemana.map((dia) => {
         const diaData = weekMeals[dia] || { comida: [], cena: [] };
@@ -101,12 +102,13 @@ export default function WeekGrid({
         );
       })}
 
+    </div>
       <div className="totals-semana">
         <h3>Resumen Semanal</h3>
         <strong>Total Semana: </strong> {Math.round(totalSemana.kcal)} Kcal,{" "}
         {Math.round(totalSemana.protein)}g Protein,{" "}
         {Math.round(totalSemana.carbs)}g Carbs
       </div>
-    </div>
+      </>
   );
 }

@@ -3,8 +3,9 @@
   box-sizing: border-box;
   width: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  
+  scrollbar-width: thin;
   background-color: #0a0f1f;
+  scrollbar-color: #5ee4ff #121c38;
 }
 
 
@@ -86,7 +87,7 @@ button:active{
 }
 .draggrable-item:hover {
   background-color: #263a69;
-  box-shadow: 0 0 5px #00e1ff77;
+  box-shadow: 0 0 5px #0099ff77;
 }
 .week-grid {
  display: grid;
@@ -131,6 +132,19 @@ button:active{
     color: #8bd7ff;
     text-shadow: 0 0 2px #00f0ff;
   }
+  .totals-semana{
+    width: 100%;
+    background-color: #223a6a;
+    text-align: center;
+    padding: 2rem 0;
+    margin: 1rem 0;
+    border-radius: 15px;
+     h3{
+      padding-top: 0;
+      margin-top: 0;
+     }
+
+  }
 .meal-item{
   position: relative;
   display: flex;
@@ -141,10 +155,11 @@ button:active{
   padding: 4px;
   margin: 4px 0;
   /* background: #fff; */
-  border: 1px solid #ccc;
+  border: 1px solid #0a0f1f;
   border-radius: 4px;
   overflow-wrap: break-word;
   word-break: break-word;
+  box-shadow: 0 0 8px #0a0f1f;
 }
 
 .grams-input{
@@ -174,8 +189,8 @@ input[type="number"] {
 .navbar {
   display: flex;
  flex-direction: column;
- 
-  padding: 1rem;
+ margin: 0;
+  padding: 0;
   color: white;
   width: 100%;
 }
@@ -188,6 +203,7 @@ h2{
   justify-content: space-between;
   align-items: center;
   background-color: #1f2a48;
+  padding-left: 1rem;
 }
 
 .dropdown-toggle {
