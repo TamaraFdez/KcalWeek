@@ -10,10 +10,9 @@ export default function CalorieInfo({ usuario }) {
   
     return (
       <div className="calorie-info">
-        <h3>Calorías estimadas:</h3>
-        <p>Gasto: Diario {gastoDiario} kcal / Semanal {gastoDiario * 7} kcal</p>
-        <p>Definición: {definicion} kcal / Semanal {definicion * 7} kcal</p>
-        <p>Volumen: {volumen} kcal / Semanal {volumen * 7} kcal</p>
+        <p><strong>Definición:</strong> <br /><span>Diario</span> {definicion} kcal / <span>Semanal</span> {definicion * 7} kcal</p>
+        <p><strong>Mantenimiento:</strong> <br /><span>Diario</span> {gastoDiario} kcal / <span>Semanal</span> {gastoDiario * 7} kcal</p>
+        <p> <strong>Volumen:</strong> <br /><span>Diario</span> {volumen} kcal / <span>Semanal</span> {volumen * 7} kcal</p>
       </div>
     );
   }
