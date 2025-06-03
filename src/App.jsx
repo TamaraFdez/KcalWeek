@@ -37,31 +37,30 @@ function App() {
 
   const handleDragStart = (id) => setDraggedFoodId(id);
 
-const handleDrop = (() => {
-  let lastDrop = null;
-  return (dia, tipo) => {
-    const comida = foodItems.find(item => item.id === draggedFoodId);
-    if (!comida) return;
+const handleDrop = (dia, tipo) => {
+  const comida = foodItems.find(item => item.id === draggedFoodId);
+  if (!comida) return;
 
-    const uid = `${comida.id}-${dia}-${tipo}`;
-    if (lastDrop === uid) return; // prevenir doble drop
-    lastDrop = uid;
-
-    const nueva = { ...comida, uid: `${uid}-${Date.now()}`, grams: 100 };
-
-    setWeekMeals(prev => {
-      const copia = { ...prev };
-      if (!copia[dia]) copia[dia] = { comida: [], cena: [] };
-      copia[dia][tipo] = [...(copia[dia][tipo] || []), nueva];
-      return copia;
-    });
-
-    // Limpiar lastDrop después de un corto tiempo
-    setTimeout(() => {
-      if (lastDrop === uid) lastDrop = null;
-    }, 200);
+  const nueva = {
+    ...comida,
+    uid: `${comida.id}-${Date.now()}-${Math.random()}`,
+    grams: 100,
   };
-})();
+
+  setWeekMeals(prev => {
+    const copia = { ...prev };
+    if (!copia[dia]) copia[dia] = { comida: [], cena: [] };
+
+    const yaExiste = copia[dia][tipo]?.some(item => item.id === draggedFoodId);
+    if (yaExiste) return prev;
+
+    copia[dia][tipo] = [...(copia[dia][tipo] || []), nueva];
+    return copia;
+  });
+
+  setDraggedFoodId(null); // importante
+};
+
 
   const handleGramsChange = (dia, tipo, uid, grams) => {
     setWeekMeals(prev => {
