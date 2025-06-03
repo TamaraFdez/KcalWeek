@@ -9,10 +9,13 @@
 
 
 
-h1, h2, h3 {
+h2, h3 {
   color: #5ee4ff;
   text-shadow: 0 0 4px #5ee4ff;
 
+}
+h1{
+  color: ;
 }
 .App {
   padding: 2rem;
@@ -173,7 +176,7 @@ input[type="number"] {
 .navbar {
   display: flex;
  flex-direction: column;
-  background-color: #1f2a48;
+ 
   padding: 1rem;
   color: white;
   width: 100%;
@@ -186,6 +189,7 @@ h2{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: #1f2a48;
 }
 
 .dropdown-toggle {
