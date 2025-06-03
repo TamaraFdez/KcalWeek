@@ -37,17 +37,31 @@ function App() {
 
   const handleDragStart = (id) => setDraggedFoodId(id);
 
-  const handleDrop = (dia, tipo) => {
+const handleDrop = (() => {
+  let lastDrop = null;
+  return (dia, tipo) => {
     const comida = foodItems.find(item => item.id === draggedFoodId);
     if (!comida) return;
-    const nueva = { ...comida, uid: `${comida.id}-${Date.now()}`, grams: 100 };
+
+    const uid = `${comida.id}-${dia}-${tipo}`;
+    if (lastDrop === uid) return; // prevenir doble drop
+    lastDrop = uid;
+
+    const nueva = { ...comida, uid: `${uid}-${Date.now()}`, grams: 100 };
+
     setWeekMeals(prev => {
-      const copia = { ...prev }
+      const copia = { ...prev };
       if (!copia[dia]) copia[dia] = { comida: [], cena: [] };
       copia[dia][tipo] = [...(copia[dia][tipo] || []), nueva];
       return copia;
     });
+
+    // Limpiar lastDrop después de un corto tiempo
+    setTimeout(() => {
+      if (lastDrop === uid) lastDrop = null;
+    }, 200);
   };
+})();
 
   const handleGramsChange = (dia, tipo, uid, grams) => {
     setWeekMeals(prev => {
