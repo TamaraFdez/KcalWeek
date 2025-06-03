@@ -18,8 +18,8 @@ h1,h2, h3 {
 
 .App {
   padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  /* max-width: 1200px; */
+  margin: 0 2rem;
 }
 
 input, select, button {
