@@ -30,6 +30,7 @@ function App() {
   });
 
   useEffect(() => {
+    console.log("Guardando datos en localStorage", weekMeals);
     localStorage.setItem("foodItems", JSON.stringify(foodItems));
     localStorage.setItem("weekMeals", JSON.stringify(weekMeals));
     localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -50,15 +51,22 @@ const handleDrop = (dia, tipo) => {
   setWeekMeals(prev => {
     const copia = { ...prev };
     if (!copia[dia]) copia[dia] = { comida: [], cena: [] };
-
+    else{
+      if (!copia[dia].comida) copia[dia].comida = [];
+      if(!copia[dia].cena) copia[dia].cena = [];
+    }
     const yaExiste = copia[dia][tipo]?.some(item => item.id === draggedFoodId);
-    if (yaExiste) return prev;
+    if (yaExiste){
+      console.log("Ya existe una comida de este tipo en este día");
+      return prev;
+    } 
 
     copia[dia][tipo] = [...(copia[dia][tipo] || []), nueva];
+    console.log(`Añadida ${comida.name} a ${dia} - ${tipo}`);
     return copia;
   });
 
-  setDraggedFoodId(null); // importante
+  setDraggedFoodId(null); 
 };
 
 
