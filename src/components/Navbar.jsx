@@ -1,33 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import UserForm from "./UserForm";
 import AddFoodForm from "./AddFoodForm";
-import AnimatedMenu from "./AnimateMenu";
 
-const Navbar = ({ usuario, setUsuario, nuevaComida, setNuevaComida, agregarComida }) => {
+const Navbar = ({
+  usuario,
+  setUsuario,
+  nuevaComida,
+  setNuevaComida,
+  agregarComida,
+}) => {
   const [mostrarFormularios, setMostrarFormularios] = useState(false);
+  const dropdownRef = useRef();
+
+  const toggleDropdown = () => {
+    setMostrarFormularios((prev) => !prev);
+  };
+
+  // Cerrar al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMostrarFormularios(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="navbar">
       <h1>Planificador de Comidas</h1>
-      <button onClick={() => setMostrarFormularios((v) => !v)} className="dropdown-toggle">
-        ⚙️ Configuración usuario y Añadir comida
+      <button onClick={toggleDropdown} className="dropdown-toggle">
+        ⚙️ Configuración
       </button>
 
-      <AnimatedMenu isOpen={mostrarFormularios} onClose={() => setMostrarFormularios(false)}>
-        <AddFoodForm
-          nuevaComida={nuevaComida}
-          setNuevaComida={setNuevaComida}
-          agregarComida={agregarComida}
-        />
-        <UserForm usuario={usuario} setUsuario={setUsuario} />
-        <button onClick={() => setMostrarFormularios(false)} className="close-btn">
-          ✖ Cerrar
-        </button>
-      </AnimatedMenu>
+      {mostrarFormularios && (
+        <div ref={dropdownRef} className="dropdown-menu">
+          <AddFoodForm
+            nuevaComida={nuevaComida}
+            setNuevaComida={setNuevaComida}
+            agregarComida={agregarComida}
+          />
+          <UserForm usuario={usuario} setUsuario={setUsuario} />
+          <button onClick={() => setMostrarFormularios(false)} className="close-btn">
+            ✖ Cerrar
+          </button>
+        </div>
+      )}
     </nav>
   );
 };
 
 export default Navbar;
-
 
