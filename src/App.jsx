@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import CalorieInfo from "./components/CalorieInfo";
-import FoodList from "./components/FoodList";
 import WeekGrid from "./components/WeekGrid";
 import Navbar from "./components/Navbar";
 
+//TODO: 
+//Refactorizar el código para que sea más limpio y modular
+//Añadir boton Añadir comida de la lista en cada dia
+//Añadir más tipos de comidas en cada dia
+//Hacer dragg and drop e intercmabiable entre comidas, cenas y días
+//Editar navbar para que quede arriba y no se pierda 
+//Mejorar el modo movil para que sea mas responsive el navbar y el grid de comidas
+//Añadir seccion de notas en cada comida en dia
+//Añadir boton de editar a comidas
+//Añadir que se vean las kcal/carbs/pro de cada alimento del grid 
+//mostrar carbs que faltan para llegar a los objetivos del usuario
 
 
 

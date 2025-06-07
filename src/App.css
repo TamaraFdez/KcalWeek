@@ -272,6 +272,7 @@ h1 {
   flex-direction: row;
   justify-content: space-around;
   gap: 1rem;
+  padding-bottom: 3rem;
    div{
     border: 1px solid #5ee4ff;
     padding: 0.5rem;
