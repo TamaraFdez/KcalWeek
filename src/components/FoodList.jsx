@@ -1,10 +1,10 @@
-export default function FoodList({ foodItems, handleDragStart, borrarComida }) {
+export default function FoodList({ foodItems, borrarComida }) {
     return (
       <div className="food-list">
         <h2>Lista de Comidas</h2>
         <ul className="food-items">
           {foodItems.map(item => (
-            <li key={item.id} draggable onDragStart={() => handleDragStart(item.id)} className="draggrable-item">
+            <li key={item.id}  className="draggrable-item">
               <p><strong>{item.name}</strong> <br />
               {item.kcal} kcal/100g <br />
               {item.protein}g Proteinas <br />

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import UserForm from "./UserForm";
+import FoodList from "./FoodList";
 import AddFoodForm from "./AddFoodForm";
 
 const Navbar = ({
@@ -8,10 +9,13 @@ const Navbar = ({
   nuevaComida,
   setNuevaComida,
   agregarComida,
+  foodItems,
+  borrarComida,
 }) => {
   // const [mostrar, setMostrar] = useState(false);
   const [mostrarUserForm, setMostrarUserForm] = useState(false);
   const [mostrarAddFoodForm, setMostrarAddFoodForm] = useState(false);
+  const [mostrarFoodList, setMostrarFoodList] = useState(false);
   const dropdownRef = useRef();
 
 
@@ -21,6 +25,7 @@ const Navbar = ({
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setMostrarAddFoodForm(false);
         setMostrarUserForm(false);
+        setMostrarFoodList(false);
       }
     };
 
@@ -39,7 +44,11 @@ const Navbar = ({
       </button> 
       <button onClick={() => setMostrarUserForm((prev) => !prev)} className="dropdown-toggle">
         ⚙️ Configuración usuario
-      </button> </div> </div>
+      </button>
+      <button onClick={() => setMostrarFoodList((prev) => !prev)} className="dropdown-toggle">
+        ⚙️ Lista de Alimentos
+      </button> 
+       </div> </div>
       <h1>Planificador de Comidas</h1>
 
       {mostrarAddFoodForm && (
@@ -60,6 +69,19 @@ const Navbar = ({
           
           <UserForm usuario={usuario} setUsuario={setUsuario} />
           <button onClick={() => setMostrarUserForm(false)} className="close-btn">
+            ✖ Cerrar
+          </button>
+        </div>
+      )}
+       {mostrarFoodList && (
+        <div ref={dropdownRef} className="dropdown-menu">
+          
+          <FoodList
+             agregarComida={agregarComida}
+             foodItems={foodItems}
+             borrarComida={borrarComida}
+          />
+          <button onClick={() => setMostrarFoodList(false)} className="close-btn">
             ✖ Cerrar
           </button>
         </div>

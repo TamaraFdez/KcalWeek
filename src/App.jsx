@@ -112,16 +112,14 @@ const handleDrop = (dia, tipo) => {
         nuevaComida={nuevaComida}
         setNuevaComida={setNuevaComida}
         agregarComida={agregarComida}
+        foodItems={foodItems}
+        borrarComida={borrarComida}
       />
 
     <main className="App">
       <CalorieInfo usuario={usuario} weekMeals={weekMeals} />
 
-      <FoodList
-        foodItems={foodItems}
-        handleDragStart={handleDragStart}
-        borrarComida={borrarComida}
-      />
+ 
 
       <WeekGrid
         weekMeals={weekMeals}
