@@ -129,6 +129,10 @@ const handleDrop = (dia, tipo) => {
         usuario={usuario}
       />
     </main>
+    <footer className="footer">
+      <p>© 2025 KcalWeek. Todos los derechos reservados.</p>
+      <p>Desarrollado con ❤️ por <a href="https://github.com/TamaraFdez">Tamara Fernandez</a></p>
+      </footer>
     </>
   );
 }
