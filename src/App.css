@@ -272,7 +272,7 @@ h1{
   flex-direction: row;
   justify-content: space-around;
   gap: 1rem;
-   p{
+   div{
     border: 1px solid #5ee4ff;
     padding: 0.5rem;
     border-radius: 15px;
@@ -282,4 +282,8 @@ h1{
       font-size: 0.7rem;
     }
    }
+}
+.modo-container{
+  display: flex;
+  flex-direction: column;
 }

@@ -24,7 +24,7 @@ function App() {
   const [usuario, setUsuario] = useState(() => {
     const saved = localStorage.getItem("usuario");
     return saved ? JSON.parse(saved) : {
-      peso: "74", altura: "168", edad: "32", sexo: "hombre", actividad: "1.55",proteinas: "200"
+      peso: "74", altura: "168", edad: "32", sexo: "hombre", actividad: "1.55",proteinas: "200", carbohidratos: "300", modo: "definicion"
     };
   });
 

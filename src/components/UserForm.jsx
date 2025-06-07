@@ -29,7 +29,27 @@ export default function UserForm({ usuario, setUsuario }) {
         <label>Proteinas:{" "}
           <input type="number" value={usuario.proteinas} onChange={(e) => setUsuario((u) => ({ ...u, proteinas: e.target.value }))} />
         </label>
-      </div>
+        <label>
+          Carbohidratos:{" "}
+          <input type="number" value={usuario.carbohidratos} onChange={(e) => setUsuario((u) => ({ ...u, carbohidratos: e.target.value }))} />
+        </label>
+        <div className="modo-container">
+          <strong>Modo:</strong>
+        <label >
+        <input type="radio" name="modo" id="modo" value="Definicion" checked={usuario.modo === "Definicion"}onChange={(e) => setUsuario((u) => ({ ...u, modo: e.target.value}))}/>
+         {" "} Déficit
+        </label>
+        <label>
+        <input type="radio" name="modo" id="modo" value="Mantenimiento" checked={usuario.modo === "Mantenimiento"} onChange={(e) => setUsuario((u) => ({ ...u, modo: e.target.value}))}/>
+          {" "}Mantenimiento
+        </label>
+        <label>
+        <input type="radio" name="modo" id="modo" value="Volumen" checked={usuario.modo === "Volumen"} onChange={(e) => setUsuario((u) => ({ ...u, modo: e.target.value}))}/>
+         {" "} Superávit
+        </label>
+      
+        </div>
+        </div>
     );
   }
   

@@ -9,18 +9,18 @@ const Navbar = ({
   setNuevaComida,
   agregarComida,
 }) => {
-  const [mostrarFormularios, setMostrarFormularios] = useState(false);
+  // const [mostrar, setMostrar] = useState(false);
+  const [mostrarUserForm, setMostrarUserForm] = useState(false);
+  const [mostrarAddFoodForm, setMostrarAddFoodForm] = useState(false);
   const dropdownRef = useRef();
 
-  const toggleDropdown = () => {
-    setMostrarFormularios((prev) => !prev);
-  };
 
   // Cerrar al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setMostrarFormularios(false);
+        setMostrarAddFoodForm(false);
+        setMostrarUserForm(false);
       }
     };
 
@@ -33,22 +33,33 @@ const Navbar = ({
         <div className="navbar-header">
                 
       <h2>KcalWeek </h2>
-     
-      <button onClick={toggleDropdown} className="dropdown-toggle">
-        ⚙️ Configuración
+      <div className="nav-btn">
+      <button onClick={() => setMostrarAddFoodForm((prev) => !prev)} className="dropdown-toggle">
+        ⚙️ Añadir Comidas
       </button> 
-      </div>
+      <button onClick={() => setMostrarUserForm((prev) => !prev)} className="dropdown-toggle">
+        ⚙️ Configuración usuario
+      </button> </div> </div>
       <h1>Planificador de Comidas</h1>
 
-      {mostrarFormularios && (
+      {mostrarAddFoodForm && (
         <div ref={dropdownRef} className="dropdown-menu">
           <AddFoodForm
             nuevaComida={nuevaComida}
             setNuevaComida={setNuevaComida}
             agregarComida={agregarComida}
           />
+          <button onClick={() => setMostrarAddFoodForm(false)} className="close-btn">
+            ✖ Cerrar
+          </button>
+          </div>
+         
+      )}
+      {mostrarUserForm && (
+        <div ref={dropdownRef} className="dropdown-menu">
+          
           <UserForm usuario={usuario} setUsuario={setUsuario} />
-          <button onClick={() => setMostrarFormularios(false)} className="close-btn">
+          <button onClick={() => setMostrarUserForm(false)} className="close-btn">
             ✖ Cerrar
           </button>
         </div>
