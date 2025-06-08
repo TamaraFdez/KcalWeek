@@ -40,13 +40,13 @@ const Navbar = ({
       <img className="logo" src="./logokcalweek-colorv2.png" alt="Logo a color de kcalWeek, una K con degradado de violeta a cian y un rayo atravesandola" />
       <div className="nav-btn">
       <button onClick={() => setMostrarAddFoodForm((prev) => !prev)} className="dropdown-toggle">
-        ⚙️ Añadir Comidas
+      📝 Añadir Comidas
       </button> 
       <button onClick={() => setMostrarUserForm((prev) => !prev)} className="dropdown-toggle">
         ⚙️ Configuración usuario
       </button>
       <button onClick={() => setMostrarFoodList((prev) => !prev)} className="dropdown-toggle">
-        ⚙️ Lista de Alimentos
+      📋 Lista de Alimentos
       </button> 
        </div> </div>
       <h1>KcalWeek - Planificador de Comidas</h1>
