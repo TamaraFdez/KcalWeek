@@ -5,10 +5,14 @@ export default function FoodList({ foodItems, borrarComida }) {
         <ul className="food-items">
           {foodItems.map(item => (
             <li key={item.id}  className="draggrable-item">
-              <p><strong>{item.name}</strong> <br />
-              {item.kcal} kcal/100g <br />
-              {item.protein}g Proteinas <br />
-              {item.carbs}g Carbohidratos </p>
+              <p><strong>{item.name}</strong> </p>
+              <p>{item.kcal} kcal/100g </p>
+              <p>{item.protein}g Proteinas </p>
+              <p>{item.carbs}g Carbohidratos </p>
+              <p style={{
+                display: item.note === "" ? "none" : "block",
+                fontStyle: "italic",
+              }}>{item.nota}</p>
               <button className="boton-delete" onClick={() => borrarComida(item.id)}>✖</button>
             </li>
           ))}

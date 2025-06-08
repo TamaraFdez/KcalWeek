@@ -14,6 +14,10 @@ export default function AddFoodForm({ nuevaComida, setNuevaComida, agregarComida
         <label>Carbohidratos/100gr:{" "}
           <input type="number" value={nuevaComida.carbs} onChange={(e) => setNuevaComida({ ...nuevaComida, carbs: e.target.value })} />
         </label>
+        <label>
+          Nota:{" "}
+          <input type="text" />
+        </label>
         <button onClick={agregarComida}>Añadir</button>
       </div>
     );

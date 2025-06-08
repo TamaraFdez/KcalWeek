@@ -11,10 +11,10 @@ import Navbar from "./components/Navbar";
 //Hacer dragg and drop e intercmabiable entre comidas, cenas y días
 //Editar navbar para que quede arriba y no se pierda 
 //Mejorar el modo movil para que sea mas responsive el navbar y el grid de comidas
-//Añadir seccion de notas en cada comida en dia
+
 //Añadir boton de editar a comidas
 //Añadir que se vean las kcal/carbs/pro de cada alimento del grid 
-//mostrar carbs que faltan para llegar a los objetivos del usuario
+
 
 
 
@@ -29,7 +29,7 @@ function App() {
 
   const [weekMeals, setWeekMeals] = useState(() => JSON.parse(localStorage.getItem("weekMeals")) || {});
   const [draggedFoodId, setDraggedFoodId] = useState(null);
-  const [nuevaComida, setNuevaComida] = useState({ name: "", kcal: 0, protein: 0, carbs: 0 });
+  const [nuevaComida, setNuevaComida] = useState({ name: "", kcal: 0, protein: 0, carbs: 0 , nota: ""});
 
   const [usuario, setUsuario] = useState(() => {
     const saved = localStorage.getItem("usuario");
@@ -45,7 +45,7 @@ function App() {
     localStorage.setItem("usuario", JSON.stringify(usuario));
   }, [foodItems, weekMeals, usuario]);
 
-  const handleDragStart = (id) => setDraggedFoodId(id);
+  // const handleDragStart = (id) => setDraggedFoodId(id);
 
 const handleDrop = (dia, tipo) => {
   const comida = foodItems.find(item => item.id === draggedFoodId);
