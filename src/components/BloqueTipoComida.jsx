@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import calcularTotales from "../utils/calcularTotales";
 import ComidaItem from "./ComidaItem";
 
@@ -17,6 +17,7 @@ export default function BloqueTipoComida({
   const [busqueda, setBusqueda] = useState("");
   const [seleccionada, setSeleccionada] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(false);
+  const buscadorRef = useRef(null);
   const totales = calcularTotales(comidas);
   const etiqueta = {
     comida: "🍽️ Comida",
@@ -25,6 +26,18 @@ export default function BloqueTipoComida({
   };
   const yaAñadidas = (weekMeals[dia]?.[tipo] || []).map(c => c.id);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (buscadorRef.current && !buscadorRef.current.contains(event.target)) {
+        setMostrarLista(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const sugerencias = foodItems
   .filter(comida =>
@@ -68,7 +81,7 @@ export default function BloqueTipoComida({
         </div>
 
         {/* Buscador y botón añadir */}
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative" } }ref={buscadorRef}>
           <input
             type="text"
             value={busqueda}
