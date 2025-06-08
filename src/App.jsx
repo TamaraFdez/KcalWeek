@@ -60,10 +60,11 @@ const handleDrop = (dia, tipo) => {
   setWeekMeals(prev => {
     const copia = { ...prev };
    
-    if (!copia[dia]) copia[dia] = { comida: [], cena: [] };
+    if (!copia[dia]) copia[dia] = { comida: [], cena: [], batido: [] };
     else{
       if (!copia[dia].comida) copia[dia].comida = [];
-      if(!copia[dia].cena) copia[dia].cena = [];
+      if(!copia[dia].cena) copia[dia].cena = []
+      if(!copia[dia].batido) copia[dia].batido = [];
     }
     const yaExiste = copia[dia][tipo]?.some(item => item.id === draggedFoodId);
     if (yaExiste){
@@ -137,6 +138,10 @@ const handleDrop = (dia, tipo) => {
         handleGramsChange={handleGramsChange}
         deleteMeal={deleteMeal}
         usuario={usuario}
+      foodItems={foodItems}
+      setFoodItems={setFoodItems}
+      setWeekMeals={setWeekMeals}
+     
       />
     </main>
     <footer className="footer">

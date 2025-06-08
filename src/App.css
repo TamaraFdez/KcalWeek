@@ -301,3 +301,35 @@ h1 {
   text-align: center;
   padding: 1rem;
 }
+.buscador-comida {
+  width: 200px;
+}
+
+.lista-sugerencias {
+  position: absolute;
+  top: 0;
+  left: 220px; /* a la derecha del input */
+  background-color: #121c38;
+  border: 1px solid #5ee4ff;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 280px;
+  z-index: 10;
+  border-radius: 15px;
+  box-shadow: 0px 0px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.opcion-comida {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.opcion-comida:hover {
+  background-color: #142851;
+}
+
+.boton-anadir-comida {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+

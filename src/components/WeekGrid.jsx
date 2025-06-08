@@ -1,5 +1,7 @@
-import calcularMacrosPorGramos from "../utils/calcularMacrosPorGramos";
 import calcularTotales from "../utils/calcularTotales";
+import BloqueTipoComida from "./BloqueTipoComida";
+import añadirComidaADia from "../utils/añadirComidaADia";
+
 
 export default function WeekGrid({
   weekMeals,
@@ -7,7 +9,11 @@ export default function WeekGrid({
   handleGramsChange,
   deleteMeal,
   usuario,
+  foodItems,
+  setFoodItems,
+  setWeekMeals,
 }) {
+
   const diasSemana = [
     "Lunes",
     "Martes",
@@ -22,13 +28,13 @@ export default function WeekGrid({
     protein: 0,
     carbs: 0,
   };
-  const tipos = ["comida", "cena"];
+  const tipos = ["comida", "cena", "batido"];
 
   return (
     <>
       <div className="week-grid">
         {diasSemana.map((dia) => {
-          const diaData = weekMeals[dia] || { comida: [], cena: [] };
+          const diaData = weekMeals[dia] || Object.fromEntries(tipos.map(tipo => [tipo, []]));
           let totalDia = { kcal: 0, protein: 0, carbs: 0 };
           return (
             <div className="day-column" key={dia}>
@@ -46,65 +52,20 @@ export default function WeekGrid({
                 totalSemana.protein += totales.protein;
                 totalSemana.carbs += totales.carbs;
                 return (
-                  <div
-                    key={tipo}
-                    className="meal-dropzone"
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleDrop(dia, tipo);
-                    }}
-                    onDragOver={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }}
-                  >
-                    <div className="meal-type" key={`${dia}-${tipo}`}>
-                      <h4>{tipo === "comida" ? "🍽️ Comida" : "🌙 Cena"}</h4>
-                      {comidas.map((item) => {
-                        const totales = calcularMacrosPorGramos(item); 
-                        return (
-                          <div key={item.uid} className="meal-item">
-                            <strong>{item.name}</strong>
-                            <br />
-                            {Math.round(totales.kcal)} Kcal,{" "}
-                            {Math.round(totales.protein)}g Protein,{" "}
-                            {Math.round(totales.carbs)}g Carbs
-                            <br />
-                            <label>
-                              <input
-                                type="number"
-                                value={item.grams}
-                                onChange={(e) =>
-                                  handleGramsChange(
-                                    dia,
-                                    tipo,
-                                    item.uid,
-                                    e.target.value
-                                  )
-                                }
-                                className="grams-input"
-                              />
-                              g
-                            </label>
-                            <button
-                              className="boton-delete-dia"
-                              onClick={() => deleteMeal(dia, tipo, item.uid)}
-                            >
-                              ✖
-                            </button>
-                          </div>
-                        );
-                      })}
-
-                      <div className="totals">
-                        <strong>Total {tipo}: </strong>{" "}
-                        {Math.round(totales.kcal)} Kcal,{" "}
-                        {Math.round(totales.protein)}g Protein,{" "}
-                        {Math.round(totales.carbs)}g Carbs
-                      </div>
-                    </div>
-                  </div>
+                 <BloqueTipoComida
+                    key={`${dia}-${tipo}`}
+                    comidas={comidas}
+                    tipo={tipo}
+                    dia={dia}
+                    handleDrop={handleDrop}
+                    handleGramsChange={handleGramsChange}
+                    deleteMeal={deleteMeal}
+                    foodItems={foodItems}
+                    setFoodItems={setFoodItems}
+                    añadirComidaADia={añadirComidaADia}
+                    setWeekMeals={setWeekMeals}
+                    weekMeals={weekMeals}
+                 />
                 );
               })}
               <div className="totals-dia">
