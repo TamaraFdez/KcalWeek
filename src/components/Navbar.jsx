@@ -11,6 +11,7 @@ const Navbar = ({
   agregarComida,
   foodItems,
   borrarComida,
+  editarComida,
 }) => {
   // const [mostrar, setMostrar] = useState(false);
   const [mostrarUserForm, setMostrarUserForm] = useState(false);
@@ -80,6 +81,8 @@ const Navbar = ({
              agregarComida={agregarComida}
              foodItems={foodItems}
              borrarComida={borrarComida}
+              editarComida={editarComida}
+
           />
           <button onClick={() => setMostrarFoodList(false)} className="close-btn">
             ✖ Cerrar

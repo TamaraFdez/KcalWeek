@@ -9,12 +9,7 @@ import Navbar from "./components/Navbar";
 //Hacer dragg and drop e intercmabiable entre comidas, cenas y días
 //Editar navbar para que quede arriba y no se pierda 
 //Mejorar el modo movil para que sea mas responsive el navbar y el grid de comidas
-
-//Añadir boton de editar a comidas
-
-
-
-
+//Añadir boton de editar a Listacomidas
 
 function App() {
   const [foodItems, setFoodItems] = useState(() => {
@@ -79,6 +74,14 @@ const handleDrop = (dia, tipo) => {
 };
 
 
+
+const editarComida = (id, nuevosDatos) => {
+  setFoodItems(prev => prev.map(item => 
+    item.id === id ? { ...item, ...nuevosDatos } : item
+  ));
+};
+
+
   const handleGramsChange = (dia, tipo, uid, grams) => {
     setWeekMeals(prev => {
       const copia = {...prev };
@@ -123,6 +126,7 @@ const handleDrop = (dia, tipo) => {
         agregarComida={agregarComida}
         foodItems={foodItems}
         borrarComida={borrarComida}
+        editarComida={editarComida}
       />
 
     <main className="App">
