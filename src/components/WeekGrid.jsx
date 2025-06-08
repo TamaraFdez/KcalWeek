@@ -32,6 +32,7 @@ export default function WeekGrid({
 
   return (
     <>
+    
       <div className="week-grid">
         {diasSemana.map((dia) => {
           const diaData = weekMeals[dia] || Object.fromEntries(tipos.map(tipo => [tipo, []]));

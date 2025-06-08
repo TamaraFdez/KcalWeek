@@ -7,9 +7,7 @@ import Navbar from "./components/Navbar";
 //TODO: 
 //Refactorizar el código para que sea más limpio y modular
 //Hacer dragg and drop e intercmabiable entre comidas, cenas y días
-//Editar navbar para que quede arriba y no se pierda 
 //Mejorar el modo movil para que sea mas responsive el navbar y el grid de comidas
-//Añadir boton de editar a Listacomidas
 
 function App() {
   const [foodItems, setFoodItems] = useState(() => {
@@ -128,8 +126,10 @@ const editarComida = (id, nuevosDatos) => {
         borrarComida={borrarComida}
         editarComida={editarComida}
       />
+      
 
     <main className="App">
+      <h1>KcalWeek - Planificador de Comidas</h1>
       <CalorieInfo usuario={usuario} weekMeals={weekMeals} />
 
  

@@ -50,7 +50,7 @@ const Navbar = ({
       📋 Lista de Alimentos
       </button> 
        </div> </div>
-      <h1>KcalWeek - Planificador de Comidas</h1>
+      
 
       {mostrarAddFoodForm && (
         <div ref={dropdownRef} className="dropdown-menu">
