@@ -30,46 +30,44 @@ export default function CalorieInfo({ usuario }) {
         <h5>
           <strong>Déficit:</strong>
         </h5>
-        <p>
-          
-          <span>Kcal: Diario</span> {definicion} kcal / <span>Semanal</span>{" "}
-          {definicion * 7} kcal
-        </p>
-        <p><span>Proteínas: Diario</span> {proteinasDefinicionMin}g-{proteinasDefinicionMax}g/ <span>Semanal</span>{" "} {proteinasDefinicionMin*7}g-{proteinasDefinicionMax*7}g</p>
-        <p>
-           <span>Carbohidratos: Diario</span> {carbohidratosDefinicionMin}g-{carbohidratosDefinicionMax}g / <span>Semanal</span>{" "}
+        <span>Kcal: Diario</span> {definicion} kcal / <span>Semanal</span>{" "}
+          {definicion * 7} kcal ||
+        
+        <span> Proteínas: Diario</span> {proteinasDefinicionMin}g-{proteinasDefinicionMax}g/ <span>Semanal</span>{" "} {proteinasDefinicionMin*7}g-{proteinasDefinicionMax*7}g ||
+        
+           <span> Carbohidratos: Diario</span> {carbohidratosDefinicionMin}g-{carbohidratosDefinicionMax}g / <span>Semanal</span>{" "}
           {carbohidratosDefinicionMin * 7}g-{carbohidratosDefinicionMax * 7}g
-        </p>
+        
       </div>
       <div
       style={{display: usuario.modo === "Mantenimiento" ? "block" : "none"}}>
         <h5>
           <strong>Mantenimiento:</strong>
         </h5>
-        <p>
+        
           <span>Kcal: Diario</span> {gastoDiario} kcal / <span>Semanal</span>{" "}
           {gastoDiario * 7} kcal
-        </p>
-        <p><span>Proteínas: Diario</span> {proteinasMantenimientoMin}g-{proteinasMantenimientoMax}g/ <span>Semanal</span>{" "} {proteinasMantenimientoMin*7}g-{proteinasMantenimientoMax*7}g</p>
-        <p>
+        
+        <span>Proteínas: Diario</span> {proteinasMantenimientoMin}g-{proteinasMantenimientoMax}g/ <span>Semanal</span>{" "} {proteinasMantenimientoMin*7}g-{proteinasMantenimientoMax*7}g
+        
           <span>Carbohidratos: Diario</span> {carbohidratosMantenimientoMin}g-{carbohidratosMantenimientoMax}g / <span>Semanal</span>{" "}
           {carbohidratosMantenimientoMin * 7}g-{carbohidratosMantenimientoMax * 7}g
-        </p>
+        
       </div>
       <div
       style={{display: usuario.modo === "Volumen" ? "block" : "none"}}>
         <h5>
           <strong>Superávit: </strong>
         </h5>
-        <p>
+        
           <span>Kcal: Diario</span> {volumen} kcal / <span>Semanal</span>{" "}
           {volumen * 7} kcal
-        </p>
-        <p><span>Proteínas: Diario</span> {proteinasVolumenMin}g-{proteinasVolumenMax}g/ <span>Semanal</span>{" "} {proteinasVolumenMin*7}g-{proteinasVolumenMax*7}g</p>
-        <p>
+        
+        <span>Proteínas: Diario</span> {proteinasVolumenMin}g-{proteinasVolumenMax}g/ <span>Semanal</span>{" "} {proteinasVolumenMin*7}g-{proteinasVolumenMax*7}g
+        
           <span>Carbohidratos: Diario</span> {carbohidratosVolumenMin}g-{carbohidratosVolumenMax}g / <span>Semanal</span>{" "}
           {carbohidratosVolumenMin * 7}g-{carbohidratosVolumenMax * 7}g
-        </p>
+        
         </div>
       
     </div>
