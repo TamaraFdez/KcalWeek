@@ -7,10 +7,23 @@ export default function ComidaItem({ item, dia, tipo, handleGramsChange, deleteM
     const [mostrasNota, setMostrarNota] = useState(false);
 
     return(
-        <div className="meal-item" key={item.uid} 
+        <div className="meal-item draggrable-item" key={item.uid} 
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            onClick={() => setMostrarNota(prev => !prev)}>
+            onClick={() => setMostrarNota(prev => !prev)}
+            draggable
+            onDragStart={(e) => {
+              e.dataTransfer.setData(
+                "text/plain",
+                JSON.stringify({
+                  tipo: "comida",
+                  id: item.id,
+                  uid: item.uid, // identificador único de esta comida en ese día
+                  fromDia: dia,
+                  fromTipo: tipo,
+                })
+              );
+            }}>
             <strong>{item.name}</strong>
             <br />
             {Math.round(macros.kcal)} Kcal,{" "}

@@ -12,6 +12,7 @@ export default function WeekGrid({
   foodItems,
   setFoodItems,
   setWeekMeals,
+  handleBloqueDrop,
 }) {
 
   const diasSemana = [
@@ -66,6 +67,7 @@ export default function WeekGrid({
                     añadirComidaADia={añadirComidaADia}
                     setWeekMeals={setWeekMeals}
                     weekMeals={weekMeals}
+                    handleBloqueDrop={handleBloqueDrop}
                  />
                 );
               })}

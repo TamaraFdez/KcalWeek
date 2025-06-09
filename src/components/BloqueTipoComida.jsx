@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import calcularTotales from "../utils/calcularTotales";
 import ComidaItem from "./ComidaItem";
 
+
 export default function BloqueTipoComida({
   comidas,
   tipo,
@@ -13,6 +14,7 @@ export default function BloqueTipoComida({
   setWeekMeals,
   añadirComidaADia,
   weekMeals,
+  handleBloqueDrop
 }) {
   const [busqueda, setBusqueda] = useState("");
   const [seleccionada, setSeleccionada] = useState(null);
@@ -24,8 +26,7 @@ export default function BloqueTipoComida({
     cena: "🌙 Cena",
     batido: "🥤 Batido",
   };
-  const yaAñadidas = (weekMeals[dia]?.[tipo] || []).map(c => c.id);
-
+  const yaAñadidas = (weekMeals[dia]?.[tipo] || []).map((c) => c.id);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -41,47 +42,66 @@ export default function BloqueTipoComida({
   }, []);
 
   const sugerencias = foodItems
-  .filter(comida =>
-    comida.name.toLowerCase().includes(busqueda.toLowerCase())
-  )
-  .filter(comida => !yaAñadidas.includes(comida.id));
+    .filter((comida) =>
+      comida.name.toLowerCase().includes(busqueda.toLowerCase())
+    )
+    .filter((comida) => !yaAñadidas.includes(comida.id));
 
   return (
     <div
-      className="meal-dropzone"
+      className="draggrable-container"
+     
+      
       onDrop={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        handleDrop(dia, tipo);
+      
+        const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+      
+        if (data.tipo === "bloque") {
+          handleBloqueDrop(data.dia, data.tipoComida, dia, tipo); // origen -> destino
+        } else if (data.tipo === "comida") {
+          handleDrop(dia, tipo, data); // mueve la comida individual
+        }
       }}
+      
       onDragOver={(e) => {
         e.preventDefault();
         e.stopPropagation();
       }}
     >
       <div className="meal-type" key={`${dia}-${tipo}`}>
-        <h4>{etiqueta[tipo] || tipo}</h4>
+        <h4
+          draggable
+          onDragStart={(e) => {
+            e.dataTransfer.setData("text/plain", JSON.stringify({
+              tipo: "bloque",
+              dia,
+              tipoComida: tipo
+            }));
+          }}>{etiqueta[tipo] || tipo}</h4>
 
         {/* Lista de comidas */}
         {comidas.map((item) => {
-          const comidaOriginal = foodItems.find(f => f.id === item.id);
-          if (!comidaOriginal) return null; 
+          const comidaOriginal = foodItems.find((f) => f.id === item.id);
+          if (!comidaOriginal) return null;
           const comidaConDatos = {
             ...comidaOriginal,
             uid: item.uid,
             grams: item.grams,
           };
-        
-          return(
-          <ComidaItem
-            item={comidaConDatos}
-            dia={dia}
-            tipo={tipo}
-            handleGramsChange={handleGramsChange}
-            deleteMeal={deleteMeal}
-            key={item.uid}
-          />
-        )})}
+
+          return (
+            <ComidaItem
+              item={comidaConDatos}
+              dia={dia}
+              tipo={tipo}
+              handleGramsChange={handleGramsChange}
+              deleteMeal={deleteMeal}
+              key={item.uid}
+            />
+          );
+        })}
 
         {/* Totales */}
         <div className="totals">
@@ -91,7 +111,7 @@ export default function BloqueTipoComida({
         </div>
 
         {/* Buscador y botón añadir */}
-        <div style={{ position: "relative" } }ref={buscadorRef}>
+        <div style={{ position: "relative" }} ref={buscadorRef}>
           <input
             type="text"
             value={busqueda}
@@ -106,21 +126,23 @@ export default function BloqueTipoComida({
 
           {mostrarLista && (
             <div className="lista-sugerencias">
-              {sugerencias.length === 0 ? "No hay más en la lista, puedes añadir una nueva comida en el boton del menu":
-                sugerencias.map((comida) => (
-                <div
-                  key={comida.id}
-                  className="opcion-comida"
-                  onClick={() => {
-                    setSeleccionada(comida);
-                    setMostrarLista(false);
-                    setBusqueda(comida.name);
-                  }}
-                >
-                  <strong>{comida.name}</strong> — {comida.kcal} Kcal /{" "}
-                  {comida.protein}g Prot / {comida.carbs}g Carbs / {!comida.nota ? "Sin nota" : comida.nota}
-                </div>
-              ))}
+              {sugerencias.length === 0
+                ? "No hay más en la lista, puedes añadir una nueva comida en el boton del menu"
+                : sugerencias.map((comida) => (
+                    <div
+                      key={comida.id}
+                      className="opcion-comida"
+                      onClick={() => {
+                        setSeleccionada(comida);
+                        setMostrarLista(false);
+                        setBusqueda(comida.name);
+                      }}
+                    >
+                      <strong>{comida.name}</strong> — {comida.kcal} Kcal /{" "}
+                      {comida.protein}g Prot / {comida.carbs}g Carbs /{" "}
+                      {!comida.nota ? "Sin nota" : comida.nota}
+                    </div>
+                  ))}
             </div>
           )}
 

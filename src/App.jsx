@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 
 //TODO: 
 //Refactorizar el código para que sea más limpio y modular
-//Hacer dragg and drop e intercmabiable entre comidas, cenas y días
+
 //Mejorar el modo movil para que sea mas responsive el navbar y el grid de comidas
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
   });
 
   const [weekMeals, setWeekMeals] = useState(() => JSON.parse(localStorage.getItem("weekMeals")) || {});
-  const [draggedFoodId, setDraggedFoodId] = useState(null);
+
   const [nuevaComida, setNuevaComida] = useState({ name: "", kcal: 0, protein: 0, carbs: 0 , nota: ""});
 
   const [usuario, setUsuario] = useState(() => {
@@ -36,41 +36,69 @@ function App() {
     localStorage.setItem("usuario", JSON.stringify(usuario));
   }, [foodItems, weekMeals, usuario]);
 
-  // const handleDragStart = (id) => setDraggedFoodId(id);
 
-const handleDrop = (dia, tipo) => {
-  const comida = foodItems.find(item => item.id === draggedFoodId);
-  if (!comida) return;
-
-  const nueva = {
-    id: comida.id, 
-    uid: `${comida.id}-${Date.now()}-${Math.random()}`,
-    grams: 100,
+  const handleBloqueDrop = (diaOrigen, tipoOrigen, diaDestino, tipoDestino) => {
+    if (diaOrigen === diaDestino && tipoOrigen === tipoDestino) return;
+  
+    setWeekMeals(prev => {
+      // Clon profundo del objeto
+      const copia = JSON.parse(JSON.stringify(prev));
+  
+      // Asegurar que existen las entradas
+      if (!copia[diaOrigen]) copia[diaOrigen] = { comida: [], cena: [], batido: [] };
+      if (!copia[diaDestino]) copia[diaDestino] = { comida: [], cena: [], batido: [] };
+  
+      const origen = copia[diaOrigen][tipoOrigen];
+      const destino = copia[diaDestino][tipoDestino];
+  
+      // Si no hay nada que mover, salir
+      if (!origen || origen.length === 0) return prev;
+  
+      // Si el destino está vacío, simplemente mover
+      if (!destino || destino.length === 0) {
+        copia[diaDestino][tipoDestino] = origen;
+        copia[diaOrigen][tipoOrigen] = [];
+      } else {
+        // Intercambiar
+        copia[diaDestino][tipoDestino] = origen;
+        copia[diaOrigen][tipoOrigen] = destino;
+      }
+  
+      return copia;
+    });
   };
   
 
-  setWeekMeals(prev => {
-    const copia = { ...prev };
-   
-    if (!copia[dia]) copia[dia] = { comida: [], cena: [], batido: [] };
-    else{
-      if (!copia[dia].comida) copia[dia].comida = [];
-      if(!copia[dia].cena) copia[dia].cena = []
-      if(!copia[dia].batido) copia[dia].batido = [];
-    }
-    const yaExiste = copia[dia][tipo]?.some(item => item.id === draggedFoodId);
-    if (yaExiste){
-      console.log("Ya existe una comida de este tipo en este día");
-      return prev;
-    } 
+  const handleDrop = (toDia, toTipo, data) => {
+    const parsedData = typeof data === "string" ? JSON.parse(data) : data;
+  
+    if (!parsedData || parsedData.tipo !== "comida") return;
+  
+    const { uid, fromDia, fromTipo } = parsedData;
+  
+    setWeekMeals((prev) => {
+      const copia = structuredClone(prev);
+  
+      const comida = copia[fromDia]?.[fromTipo]?.find((item) => item.uid === uid);
+      if (!comida) return prev;
+  
+      copia[fromDia][fromTipo] = copia[fromDia][fromTipo].filter((item) => item.uid !== uid);
+  
+      if (!copia[toDia]) copia[toDia] = { comida: [], cena: [], batido: [] };
+      if (!copia[toDia][toTipo]) copia[toDia][toTipo] = [];
+  
+      copia[toDia][toTipo].push(comida);
+  
+      return copia;
+    });
+  
+ 
+  
+  };
+  
 
-    copia[dia][tipo] = [...(copia[dia][tipo] || []), nueva];
-   
-    return copia;
-  });
+  
 
-  setDraggedFoodId(null); 
-};
 
 
 
@@ -168,7 +196,8 @@ const editarComida = (comidaActualizada) => {
       
 
     <main className="App">
-      <h1>KcalWeek - Planificador de Comidas</h1>
+      <h1>Planificador de Comidas</h1>
+      <h2>⚡ KcalWeek ⚡</h2>
       <CalorieInfo usuario={usuario} weekMeals={weekMeals} />
 
  
@@ -182,6 +211,7 @@ const editarComida = (comidaActualizada) => {
       foodItems={foodItems}
       setFoodItems={setFoodItems}
       setWeekMeals={setWeekMeals}
+      handleBloqueDrop={handleBloqueDrop}
      
       />
     </main>
