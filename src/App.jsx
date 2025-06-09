@@ -123,6 +123,7 @@ const editarComida = (comidaActualizada) => {
               kcal: comidaActualizada.kcal,
               protein: comidaActualizada.protein,
               carbs: comidaActualizada.carbs,
+              nota: comidaActualizada.nota || "",
             };
           }
           return item;
@@ -179,7 +180,7 @@ const editarComida = (comidaActualizada) => {
       nota: nuevaComida.nota || "",
     };
     setFoodItems(prev => [...prev, nueva]);
-    setNuevaComida({ name: "", kcal: 0, protein: 0, carbs: 0 });
+    setNuevaComida({ name: "", kcal: 0, protein: 0, carbs: 0, nota: "" });
   };
 
   return (
