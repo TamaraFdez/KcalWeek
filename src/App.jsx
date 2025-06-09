@@ -73,10 +73,35 @@ const handleDrop = (dia, tipo) => {
 
 
 
-const editarComida = (id, nuevosDatos) => {
-  setFoodItems(prev => prev.map(item => 
-    item.id === id ? { ...item, ...nuevosDatos } : item
-  ));
+const editarComida = (comidaActualizada) => {
+  setFoodItems((prev) =>
+    prev.map((item) => (item.id === comidaActualizada.id ? comidaActualizada : item))
+  );
+
+  // 2. Actualizar la comida en weekMeals
+  setWeekMeals((prev) => {
+    const nuevo = { ...prev };
+
+    for (const dia in nuevo) {
+      for (const tipo in nuevo[dia]) {
+        nuevo[dia][tipo] = nuevo[dia][tipo].map((item) => {
+          if (item.id === comidaActualizada.id) {
+            // Mantener uid y grams, pero actualizar los valores de la comida
+            return {
+              ...item,
+              name: comidaActualizada.name,
+              kcal: comidaActualizada.kcal,
+              protein: comidaActualizada.protein,
+              carbs: comidaActualizada.carbs,
+            };
+          }
+          return item;
+        });
+      }
+    }
+
+    return nuevo;
+  });
 };
 
 
