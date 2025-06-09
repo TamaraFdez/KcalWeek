@@ -6,12 +6,12 @@
   scrollbar-width: thin;
   background-color: #0a0f1f;
   scrollbar-color: #5ee4ff #121c38;
-  color: #ccc;
+  color: #fff;
   input {
-    color: #ccc;
+    color: #fff;
   }
   select {
-    color: #ccc;
+    color: #fff;
   }
 }
 
@@ -185,8 +185,7 @@ button:active {
     margin-top: 0;
   }
 }
-.meal-item {
-}
+
 
 .grams-input {
   width: 50px;
