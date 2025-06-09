@@ -26,6 +26,7 @@ export default function BloqueTipoComida({
   };
   const yaAñadidas = (weekMeals[dia]?.[tipo] || []).map(c => c.id);
 
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (buscadorRef.current && !buscadorRef.current.contains(event.target)) {
@@ -62,16 +63,25 @@ export default function BloqueTipoComida({
         <h4>{etiqueta[tipo] || tipo}</h4>
 
         {/* Lista de comidas */}
-        {comidas.map((item) => (
+        {comidas.map((item) => {
+          const comidaOriginal = foodItems.find(f => f.id === item.id);
+          if (!comidaOriginal) return null; 
+          const comidaConDatos = {
+            ...comidaOriginal,
+            uid: item.uid,
+            grams: item.grams,
+          };
+        
+          return(
           <ComidaItem
-            item={item}
+            item={comidaConDatos}
             dia={dia}
             tipo={tipo}
             handleGramsChange={handleGramsChange}
             deleteMeal={deleteMeal}
             key={item.uid}
           />
-        ))}
+        )})}
 
         {/* Totales */}
         <div className="totals">
@@ -108,7 +118,7 @@ export default function BloqueTipoComida({
                   }}
                 >
                   <strong>{comida.name}</strong> — {comida.kcal} Kcal /{" "}
-                  {comida.protein}g Prot / {comida.carbs}g Carbs
+                  {comida.protein}g Prot / {comida.carbs}g Carbs / {!comida.nota ? "Sin nota" : comida.nota}
                 </div>
               ))}
             </div>

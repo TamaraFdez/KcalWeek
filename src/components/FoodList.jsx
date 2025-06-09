@@ -11,6 +11,7 @@ export default function FoodList({ foodItems, borrarComida, editarComida }) {
       kcal: item.kcal,
       protein: item.protein,
       carbs: item.carbs,
+      nota: item.nota || "",
     });
   };
 
@@ -26,6 +27,7 @@ export default function FoodList({ foodItems, borrarComida, editarComida }) {
       kcal: Number(editData.kcal),
       protein: Number(editData.protein),
       carbs: Number(editData.carbs),
+      nota: editData.nota || "",
     });
     setEditId(null);
   };
@@ -71,7 +73,7 @@ export default function FoodList({ foodItems, borrarComida, editarComida }) {
                     onChange={handleChange}
                     style={{ width: "60px", marginLeft: "10px" }}
                   />{" "}
-                  g Proteínas
+                 Proteínas /100g 
                 </label>
                 <label>
                   <input
@@ -81,7 +83,19 @@ export default function FoodList({ foodItems, borrarComida, editarComida }) {
                     onChange={handleChange}
                     style={{ width: "60px", marginLeft: "10px" }}
                   />{" "}
-                  g Carbohidratos
+                  Carbohidratos/100g 
+                </label>
+                <label>
+                Nota:{" "}
+                  <input
+                    type="text"
+                    name="nota"
+                    value={editData.nota || ""}
+                    onChange={handleChange}
+                    placeholder="Nota (opcional)"
+                    style={{ width: "200px", marginLeft: "10px" }}
+                  />
+                
                 </label>
 
                 <div>
@@ -98,6 +112,8 @@ export default function FoodList({ foodItems, borrarComida, editarComida }) {
                 <p>{item.kcal} kcal/100g</p>
                 <p>{item.protein}g Proteínas</p>
                 <p>{item.carbs}g Carbohidratos</p>
+                {item.nota && <p className="nota">Nota: {item.nota}</p>}
+
                 <div>
                   <button
                     className="boton-editar"

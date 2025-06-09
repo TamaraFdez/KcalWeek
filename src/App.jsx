@@ -13,8 +13,8 @@ function App() {
   const [foodItems, setFoodItems] = useState(() => {
     const saved = localStorage.getItem("foodItems");
     return saved ? JSON.parse(saved) : [
-      { id: "pollo", name: "Pollo", kcal: 165, protein: 31, carbs: 0 },
-      { id: "arroz", name: "Arroz", kcal: 130, protein: 2.7, carbs: 28 },
+      { id: "pollo", name: "Pollo", kcal: 165, protein: 31, carbs: 0, nota: "Ideal para la cena" },
+      { id: "arroz", name: "Arroz", kcal: 130, protein: 2.7, carbs: 28 , nota: ""},
     ];
   });
 
@@ -43,10 +43,11 @@ const handleDrop = (dia, tipo) => {
   if (!comida) return;
 
   const nueva = {
-    ...comida,
+    id: comida.id, 
     uid: `${comida.id}-${Date.now()}-${Math.random()}`,
     grams: 100,
   };
+  
 
   setWeekMeals(prev => {
     const copia = { ...prev };
@@ -125,6 +126,18 @@ const editarComida = (comidaActualizada) => {
 
   const borrarComida = (id) => {
     setFoodItems(prev => prev.filter(item => item.id !== id));
+
+    setWeekMeals(prev => {
+      const nuevo = {}
+
+      for(const dia in prev){
+        nuevo[dia] = {};
+        for(const tipo in prev[dia]){
+          nuevo[dia][tipo] = prev[dia][tipo].filter(item => item.id !== id);
+        }
+      }
+      return nuevo;
+    })
   };
 
   const agregarComida = () => {
@@ -134,6 +147,7 @@ const editarComida = (comidaActualizada) => {
       kcal: parseInt(nuevaComida.kcal) || 0,
       protein: parseInt(nuevaComida.protein) || 0,
       carbs: parseInt(nuevaComida.carbs) || 0,
+      nota: nuevaComida.nota || "",
     };
     setFoodItems(prev => [...prev, nueva]);
     setNuevaComida({ name: "", kcal: 0, protein: 0, carbs: 0 });
