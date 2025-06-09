@@ -41,7 +41,7 @@ export default function FoodList({ foodItems, borrarComida, editarComida }) {
       <h2>Lista de Comidas</h2>
       <ul className="food-items">
         {foodItems.map((item) => (
-          <li key={item.id} className="draggable-item">
+          <li key={item.id} className="list-item">
             <p>
               <strong>{item.name}</strong>
             </p>

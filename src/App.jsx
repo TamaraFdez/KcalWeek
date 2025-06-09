@@ -6,8 +6,9 @@ import Navbar from "./components/Navbar";
 
 //TODO: 
 //Refactorizar el código para que sea más limpio y modular
+// useContext?
 
-//Mejorar el modo movil para que sea mas responsive el navbar y el grid de comidas
+
 
 function App() {
   const [foodItems, setFoodItems] = useState(() => {
