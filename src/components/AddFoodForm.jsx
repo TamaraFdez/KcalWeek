@@ -16,7 +16,7 @@ export default function AddFoodForm({ nuevaComida, setNuevaComida, agregarComida
         </label>
         <label>
           Nota:{" "}
-          <input type="text" value={nuevaComida.nota} onChange={(e) => setNuevaComida({ ...nuevaComida, nota: e.target.value})} />
+          <input name="nota" type="text" value={nuevaComida.nota} onChange={(e) => setNuevaComida({ ...nuevaComida, nota: e.target.value})} />
         </label>
         <button onClick={agregarComida}>Añadir</button>
       </div>
