@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import calcularTotales from "../utils/calcularTotales";
 import ComidaItem from "./ComidaItem";
 
-
 export default function BloqueTipoComida({
   comidas,
   tipo,
@@ -14,11 +13,13 @@ export default function BloqueTipoComida({
   setWeekMeals,
   añadirComidaADia,
   weekMeals,
-  handleBloqueDrop
+  handleBloqueDrop,
 }) {
   const [busqueda, setBusqueda] = useState("");
   const [seleccionada, setSeleccionada] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(false);
+  const [mostrarComidas, setMostrarComidas] = useState(true);
+
   const buscadorRef = useRef(null);
   const totales = calcularTotales(comidas);
   const etiqueta = {
@@ -50,37 +51,51 @@ export default function BloqueTipoComida({
   return (
     <div
       className="draggrable-container"
-     
-      
       onDrop={(e) => {
         e.preventDefault();
         e.stopPropagation();
-      
+
         const data = JSON.parse(e.dataTransfer.getData("text/plain"));
-      
+
         if (data.tipo === "bloque") {
-          handleBloqueDrop(data.dia, data.tipoComida, dia, tipo); // origen -> destino
+          handleBloqueDrop(data.dia, data.tipoComida, dia, tipo); 
         } else if (data.tipo === "comida") {
-          handleDrop(dia, tipo, data); // mueve la comida individual
+          handleDrop(dia, tipo, data); 
         }
       }}
-      
       onDragOver={(e) => {
         e.preventDefault();
         e.stopPropagation();
       }}
     >
       <div className="meal-type" key={`${dia}-${tipo}`}>
-        <h4
-          draggable
-          onDragStart={(e) => {
-            e.dataTransfer.setData("text/plain", JSON.stringify({
-              tipo: "bloque",
-              dia,
-              tipoComida: tipo
-            }));
-          }}>{etiqueta[tipo] || tipo}</h4>
+        <div className="titulo-comida-bloque">
+          <h4
+            draggable
+            onDragStart={(e) => {
+              e.dataTransfer.setData(
+                "text/plain",
+                JSON.stringify({
+                  tipo: "bloque",
+                  dia,
+                  tipoComida: tipo,
+                })
+              );
+            }}
+          >
+            {etiqueta[tipo] || tipo}
+          </h4>
 
+          <button
+            onClick={() => setMostrarComidas(!mostrarComidas)}
+            className="toggle-visibility-btn"
+            title={mostrarComidas ? "Ocultar comidas" : "Mostrar comidas"}
+          >
+            {mostrarComidas ? "➖" : "➕"}
+          </button>
+        </div>
+        {mostrarComidas && (
+  <>
         {/* Lista de comidas */}
         {comidas.map((item) => {
           const comidaOriginal = foodItems.find((f) => f.id === item.id);
@@ -103,13 +118,7 @@ export default function BloqueTipoComida({
           );
         })}
 
-        {/* Totales */}
-        <div className="totals">
-          <strong>Total {tipo}: </strong> {Math.round(totales.kcal)} Kcal,{" "}
-          {Math.round(totales.protein)}g Protein, {Math.round(totales.carbs)}g
-          Carbs
-        </div>
-
+     
         {/* Buscador y botón añadir */}
         <div style={{ position: "relative" }} ref={buscadorRef}>
           <input
@@ -159,7 +168,17 @@ export default function BloqueTipoComida({
             </button>
           )}
         </div>
+        </>
+)}
+   {/* Totales */}
+        <div className="totals">
+          <strong>Total {tipo}: </strong> {Math.round(totales.kcal)} Kcal,{" "}
+          {Math.round(totales.protein)}g Protein, {Math.round(totales.carbs)}g
+          Carbs
+        </div>
+
       </div>
+      
     </div>
   );
 }

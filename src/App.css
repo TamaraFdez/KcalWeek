@@ -475,3 +475,17 @@ li {
     
   }
 }
+.titulo-comida-bloque {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-visibility-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
