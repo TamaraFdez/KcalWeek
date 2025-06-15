@@ -18,7 +18,13 @@ export default function BloqueTipoComida({
   const [busqueda, setBusqueda] = useState("");
   const [seleccionada, setSeleccionada] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(false);
-  const [mostrarComidas, setMostrarComidas] = useState(false);
+  const key = `${dia}-${tipo}-mostrar`;
+
+  const [mostrarComidas, setMostrarComidas] = useState(() => {
+    const guardado = localStorage.getItem(key);
+    return guardado ? JSON.parse(guardado) : false; 
+  });
+  
 
   const buscadorRef = useRef(null);
   const totales = calcularTotales(comidas);
@@ -41,6 +47,10 @@ export default function BloqueTipoComida({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(mostrarComidas));
+  }, [mostrarComidas]);
+  
 
   const sugerencias = foodItems
     .filter((comida) =>
