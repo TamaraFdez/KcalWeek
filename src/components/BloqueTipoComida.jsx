@@ -18,7 +18,7 @@ export default function BloqueTipoComida({
   const [busqueda, setBusqueda] = useState("");
   const [seleccionada, setSeleccionada] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(false);
-  const [mostrarComidas, setMostrarComidas] = useState(true);
+  const [mostrarComidas, setMostrarComidas] = useState(false);
 
   const buscadorRef = useRef(null);
   const totales = calcularTotales(comidas);
