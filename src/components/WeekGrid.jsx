@@ -88,7 +88,7 @@ export default function WeekGrid({
                     ? `Faltan ${Math.round(
                         usuario.proteinas - totalDia.protein
                       )}g de proteínas `
-                    : `¡Objetivo de proteínas alcanzado! `}
+                    : `¡Objetivo de proteínas alcanzado! Total:${totalDia.protein} `}
                 </span>
                 <br />
                 <span
@@ -103,7 +103,7 @@ export default function WeekGrid({
                     ? `Faltan ${Math.round(
                         usuario.carbohidratos - totalDia.carbs
                       )}g de carbohidratos`
-                    : `¡Objetivo de carbohidratos alcanzado!`}
+                    : `¡Objetivo de carbohidratos alcanzado! Total:${totalDia.carbs} `}
                 </span>
               </div>
             </div>
